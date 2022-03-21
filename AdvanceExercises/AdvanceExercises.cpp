@@ -50,8 +50,24 @@ int main()
 	packages.push_back(&package2);
 	packages.push_back(&twoDayPackage1);
 
-	
+	double totalCosts{};
 
+	for (size_t i = 0; i < packages.size(); i++)
+	{
+		double currentCost = packages[i]->calculateCost();
+
+		cout
+			<< "Recipient Address: " 
+			<< packages[i]->getRecipAddress() << "   "
+			<< "Sender Address: "
+			<< packages[i]->getSendAddress() << "   "
+			<< "Costs: "
+			<< currentCost << endl;
+
+		totalCosts += currentCost;
+	}
+
+	cout << "Total costs: " << totalCosts << endl;
 }
 
 
