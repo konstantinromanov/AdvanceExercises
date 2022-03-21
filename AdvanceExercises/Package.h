@@ -1,8 +1,6 @@
 #pragma once
-
 #include <string>
 using namespace std;
-
 
 class Package {
 
@@ -23,7 +21,7 @@ private:
 	double m_cost;
 
 public:
-
+	
 	Package(string recip_name,
 		string recip_address,
 		string recip_city,

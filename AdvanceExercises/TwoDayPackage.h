@@ -1,7 +1,6 @@
 #pragma once
 #include "Package.h"
 
-
 class TwoDayPackage : public Package
 {
 
