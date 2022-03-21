@@ -1,8 +1,9 @@
 #pragma once
+
 #include "Package.h"
 
 
-class OvernightPackage : Package
+class OvernightPackage : public Package
 {
 
 private:
@@ -40,4 +41,5 @@ public:
 	}
 
 };
+
 

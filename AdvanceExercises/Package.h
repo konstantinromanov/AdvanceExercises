@@ -1,6 +1,8 @@
 #pragma once
+
 #include <string>
 using namespace std;
+
 
 class Package {
 
@@ -51,6 +53,14 @@ public:
 		m_cost = cost;
 	}
 
+	string getRecipAddress() {
+		return m_recip_address;
+	}
+
+	string getSendAddress() {
+		return m_send_address;
+	}
+
 	double getWeight() {
 		return m_weight;
 	}
@@ -65,4 +75,5 @@ public:
 		return result;
 	}
 };
+
 

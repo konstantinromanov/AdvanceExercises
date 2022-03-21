@@ -6,31 +6,52 @@
 #include "Package.h"
 #include "TwoDayPackage.h"
 #include "OvernightPackage.h"
+#include <vector>
 using namespace std;
+
+
 
 
 int main()
 {
 	Package package1 = Package("1", "Address 1", "Riga", "Latvia", "LV-1010",
-		"1", "Address 1", "Riga", "Latvia", "LV-1010", 1.5, 10.10);
+	"1", "Address 1", "Riga", "Latvia", "LV-1010", 1.5, 10.10);
 	Package package2 = Package("1", "Address 1", "Riga", "Latvia", "LV-1010",
-		"2", "Address 2", "Riga", "Latvia", "LV-1010", 3.5, 13.10);
-	Package package3 = Package("3", "Address 3", "Riga", "Latvia", "LV-1010",
-		"3", "Address 3", "Riga", "Latvia", "LV-1010", 5.5, 15.10);
+	"2", "Address 2", "Riga", "Latvia", "LV-1010", 3.5, 13.10);
+	//Package package3 = Package("3", "Address 3", "Riga", "Latvia", "LV-1010",
+	//"3", "Address 3", "Riga", "Latvia", "LV-1010", 5.5, 15.10);
 
-	double costPackage1 = package1.calculateCost();
-	double costPackage2 = package2.calculateCost();
-	double costPackage3 = package3.calculateCost();
+	//double costPackage1 = package1.calculateCost();
+	//double costPackage2 = package2.calculateCost();
+	//double costPackage3 = package3.calculateCost();
 
 	TwoDayPackage twoDayPackage1 = TwoDayPackage("Tim", "Address 1", "Riga", "Latvia", "LV-1010",
 		"1", "Address 1", "Riga", "Latvia", "LV-1010", 1.5, 10.10, 20);
 
-	double costTwoDayPackage1 = twoDayPackage1.calculateCost();
+	//double costTwoDayPackage1 = twoDayPackage1.calculateCost();
 
 	OvernightPackage overnightPackage1 = OvernightPackage("John", "Brivibas 24", "Riga", "Latvia", "LV-1010",
 		"1", "Kuldigas street 16", "Riga", "Latvia", "LV-1010", 1.5, 10.10, 50);
 
-	double costOvernightPackage1 = overnightPackage1.calculateCost();
+
+	/*TwoDayPackage twoDayPackage1("Tim", "Address 1", "Riga", "Latvia", "LV-1010",
+		"1", "Address 1", "Riga", "Latvia", "LV-1010", 1.5, 10.10, 20);
+
+	OvernightPackage overnightPackage1("John", "Brivibas 24", "Riga", "Latvia", "LV-1010",
+		"1", "Kuldigas street 16", "Riga", "Latvia", "LV-1010", 1.5, 10.10, 50);*/
+
+	//double costOvernightPackage1 = overnightPackage1.calculateCost();
+
+	//vector<Package*> packages{ &twoDayPackage1 , &overnightPackage1 };
+
+	vector<Package*> packages;
+
+	packages.push_back(&package1);
+	packages.push_back(&package2);
+	packages.push_back(&twoDayPackage1);
+
+	
+
 }
 
 

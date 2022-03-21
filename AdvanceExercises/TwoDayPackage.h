@@ -1,7 +1,8 @@
 #pragma once
 #include "Package.h"
 
-class TwoDayPackage : Package
+
+class TwoDayPackage : public Package
 {
 
 private:
