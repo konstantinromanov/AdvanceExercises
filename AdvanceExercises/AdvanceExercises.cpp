@@ -24,7 +24,7 @@ private:
 	double m_cost;
 
 public:
-
+	
 	Package(string recip_name,
 		string recip_address,
 		string recip_city,
@@ -54,11 +54,67 @@ public:
 		m_cost = cost;
 	}
 
+	double getWeight() {
+		return m_weight;
+	}
+
+	double getCost() {
+		return m_cost;
+	}
+
 	virtual double calculateCost() {
 		double result = m_weight * m_cost;
 
 		return result;
 	}
+
+	/*virtual double calculateCost(double addFee) {
+		double result = m_weight * (m_cost + addFee); // This is not a good idea, since we need to change base class for this, by implementing Method overload.
+
+		return result;
+	}*/
+};
+
+class OvernightPackage : Package
+{
+
+private:
+	double m_addFee;
+
+public:
+
+	OvernightPackage(string recip_name,
+		string recip_address,
+		string recip_city,
+		string recip_state,
+		string recip_zip,
+		string send_name,
+		string send_address,
+		string send_city,
+		string send_state,
+		string send_zip,
+		double weight,
+		double cost,
+
+		double addFee) : Package(recip_name, recip_address, recip_city, recip_state, recip_zip,
+			send_name,
+			send_address,
+			send_city,
+			send_state,
+			send_zip,
+			weight,
+			cost)
+	{
+		m_addFee = addFee;
+	}
+
+	double calculateCost() override {
+
+		//return Package::calculateCost(m_addFee); // This is not a good idea, since we need to change base class for this, by implementing Method overload.
+
+		 return Package::getWeight() * (Package::getCost() + m_addFee);
+	}
+
 };
 
 class TwoDayPackage : Package
@@ -105,16 +161,24 @@ int main()
 	Package package1 = Package("1", "Address 1", "Riga", "Latvia", "LV-1010",
 		"1", "Address 1", "Riga", "Latvia", "LV-1010", 1.5, 10.10);
 	Package package2 = Package("1", "Address 1", "Riga", "Latvia", "LV-1010",
-		"2", "Address 2", "Riga", "Latvia", "LV-1010", 1.5, 10.10);
+		"2", "Address 2", "Riga", "Latvia", "LV-1010", 3.5, 13.10);
 	Package package3 = Package("3", "Address 3", "Riga", "Latvia", "LV-1010",
-		"3", "Address 3", "Riga", "Latvia", "LV-1010", 1.5, 10.10);
+		"3", "Address 3", "Riga", "Latvia", "LV-1010", 5.5, 15.10);
 
-	double cost1 = package1.calculateCost();
+	double costPackage1 = package1.calculateCost();
+	double costPackage2 = package2.calculateCost();
+	double costPackage3 = package3.calculateCost();
 
-	TwoDayPackage twoDayPackage1 = TwoDayPackage("1", "Address 1", "Riga", "Latvia", "LV-1010",
-		"1", "Address 1", "Riga", "Latvia", "LV-1010", 1.5, 10.10, 100);
 
-	double cost2 = twoDayPackage1.calculateCost();
+	TwoDayPackage twoDayPackage1 = TwoDayPackage("Tim", "Address 1", "Riga", "Latvia", "LV-1010",
+		"1", "Address 1", "Riga", "Latvia", "LV-1010", 1.5, 10.10, 20);
+
+	double costTwoDayPackage1 = twoDayPackage1.calculateCost();
+
+	OvernightPackage overnightPackage1 = OvernightPackage("John", "Brivibas 24", "Riga", "Latvia", "LV-1010",
+		"1", "Kuldigas street 16", "Riga", "Latvia", "LV-1010", 1.5, 10.10, 50);
+		
+	double costOvernightPackage1 = overnightPackage1.calculateCost();
 
 	//std::cout << "Hello World!\n";
 }
