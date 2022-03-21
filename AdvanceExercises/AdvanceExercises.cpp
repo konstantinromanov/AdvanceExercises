@@ -54,23 +54,67 @@ public:
 		m_cost = cost;
 	}
 
-	double calculateCost() {
+	virtual double calculateCost() {
 		double result = m_weight * m_cost;
 
 		return result;
 	}
 };
 
+class TwoDayPackage : Package
+{
 
+private:
+	double m_flatFee;
+
+public:
+
+	TwoDayPackage(string recip_name,
+		string recip_address,
+		string recip_city,
+		string recip_state,
+		string recip_zip,
+		string send_name,
+		string send_address,
+		string send_city,
+		string send_state,
+		string send_zip,
+		double weight,
+		double cost,
+
+		double flatFee) : Package(recip_name, recip_address, recip_city, recip_state, recip_zip,
+			send_name,
+			send_address,
+			send_city,
+			send_state,
+			send_zip,
+			weight,
+			cost)
+	{
+		m_flatFee = flatFee;
+	}
+
+	double calculateCost() override {
+		return Package::calculateCost() + m_flatFee;
+	}
+};
 
 int main()
 {
 
 	Package package1 = Package("1", "Address 1", "Riga", "Latvia", "LV-1010",
 		"1", "Address 1", "Riga", "Latvia", "LV-1010", 1.5, 10.10);
+	Package package2 = Package("1", "Address 1", "Riga", "Latvia", "LV-1010",
+		"2", "Address 2", "Riga", "Latvia", "LV-1010", 1.5, 10.10);
+	Package package3 = Package("3", "Address 3", "Riga", "Latvia", "LV-1010",
+		"3", "Address 3", "Riga", "Latvia", "LV-1010", 1.5, 10.10);
 
 	double cost1 = package1.calculateCost();
 
+	TwoDayPackage twoDayPackage1 = TwoDayPackage("1", "Address 1", "Riga", "Latvia", "LV-1010",
+		"1", "Address 1", "Riga", "Latvia", "LV-1010", 1.5, 10.10, 100);
+
+	double cost2 = twoDayPackage1.calculateCost();
 
 	//std::cout << "Hello World!\n";
 }
