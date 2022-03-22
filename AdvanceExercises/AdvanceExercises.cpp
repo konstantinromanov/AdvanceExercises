@@ -11,6 +11,9 @@
 #include <map>
 #include <numeric>
 #include <utility>
+#include <windows.h>
+#include <cstdlib>
+#include <stdio.h>
 using namespace std;
 
 void printTestTable(vector<Package*> packages);
@@ -18,6 +21,13 @@ void printLine(int lenght);
 
 int main()
 {
+	HWND console = GetConsoleWindow();
+	RECT r;
+	GetWindowRect(console, &r); //stores the console's current dimensions
+
+	MoveWindow(console, r.left, r.top, 1600, 800, TRUE); // 1600 width, 800 height
+
+
 	Package package1 = Package("Robert", "Jelgavas 10", "Riga", "Latvia", "LV-1010",
 		"Julia", "Avotu", "Riga", "Latvia", "LV-1020", 1.5, 10.10);
 	Package package2 = Package("Howard", "Rigas 25", "Liepaja", "Latvia", "LV-3410",
@@ -41,6 +51,13 @@ int main()
 	packages.push_back(&overnightPackage1);
 
 	printTestTable(packages);	
+
+	
+	cout << "Press any key and hit Enter to exit" << endl;
+	
+	cin.get();	
+	MoveWindow(console, r.left, r.top, r.right - r.left, r.bottom - r.top, TRUE);
+	exit(0);		
 }
 
 void printTestTable(vector<Package*> packages) {
@@ -92,7 +109,7 @@ void printTestTable(vector<Package*> packages) {
 	for (size_t i = 0; i < packages.size(); i++)
 	{
 		double currentCost = packages[i]->calculateCost();
-
+		
 		cout
 			<< left << setw(colWidth.at("name")) << packages[i]->getRecipName()
 			<< setw(colWidth.at("address")) << packages[i]->getRecipAddress()
