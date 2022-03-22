@@ -8,6 +8,9 @@
 #include "OvernightPackage.h"
 #include <vector>
 #include <iomanip> 
+#include <map>
+#include <numeric>
+#include <utility>
 using namespace std;
 
 void printTestTable(vector<Package*> packages);
@@ -17,16 +20,16 @@ int main()
 {
 	Package package1 = Package("Robert", "Jelgavas 10", "Riga", "Latvia", "LV-1010",
 		"Julia", "Avotu", "Riga", "Latvia", "LV-1020", 1.5, 10.10);
-	Package package2 = Package("1", "Address 1", "Riga", "Latvia", "LV-1010",
-		"2", "Address 2", "Riga", "Latvia", "LV-1010", 3.5, 13.10);
+	Package package2 = Package("Howard", "Rigas 25", "Liepaja", "Latvia", "LV-3410",
+		"John", "Kr. Valdemara", "Riga", "Latvia", "LV-1013", 1.15, 15.10);
 
-	TwoDayPackage twoDayPackage1 = TwoDayPackage("Tim", "Address 1", "Riga", "Latvia", "LV-1010",
-		"1", "Address 1", "Riga", "Latvia", "LV-1010", 1.5, 10.10, 20);
+	TwoDayPackage twoDayPackage1 = TwoDayPackage("Tim", "Kr. Barona", "Riga", "Latvia", "LV-1005",
+		"Jerry", "Malu 15", "Daugavpils", "Latvia", "LV-5410", 0.5, 5.10, 20);
 
 	double costTwoDayPackage1 = twoDayPackage1.calculateCost();
 
-	OvernightPackage overnightPackage1 = OvernightPackage("John", "Brivibas 24", "Riga", "Latvia", "LV-1010",
-		"1", "Kuldigas street 16", "Riga", "Latvia", "LV-1010", 1.5, 10.10, 50);
+	OvernightPackage overnightPackage1 = OvernightPackage("Rasa", "Brivibas 24", "Riga", "Latvia", "LV-1010",
+		"Laima", "Kuldigas street 16", "Riga", "Latvia", "LV-1010", 1.5, 10.10, 50);
 
 	double costOvernightPackage1 = overnightPackage1.calculateCost();
 
@@ -35,30 +38,52 @@ int main()
 	packages.push_back(&package1);
 	packages.push_back(&package2);
 	packages.push_back(&twoDayPackage1);
+	packages.push_back(&overnightPackage1);
 
 	printTestTable(packages);	
 }
 
 void printTestTable(vector<Package*> packages) {
 
-	int lineWidth = 220;
+	map<string, int> colWidth{
+		pair<string, int>("name", 20),
+		pair<string, int>("address", 20),
+		pair<string, int>("city", 15),
+		pair<string, int>("state", 15),
+		pair<string, int>("zip", 15),
+		pair<string, int>("weight", 10),
+		pair<string, int>("cost", 10)
+	};
+
+	int sendRecipWidth = accumulate(begin(colWidth), end(colWidth), 0,
+		[](const size_t previous, const auto& element)
+		{ return previous + element.second; }) - colWidth.at("weight") - colWidth.at("cost");
+
+	int lineWidth = sendRecipWidth * 2 + colWidth.at("weight") + colWidth.at("cost");
+
+	printLine(lineWidth);
+	
+	cout		
+		<< setw(sendRecipWidth / 2) << "Recipient" << setw(sendRecipWidth / 2) << "|"		
+		<< setw(sendRecipWidth / 2) << "Sender" << setw(sendRecipWidth / 2) << "|" << endl;
+		
 	printLine(lineWidth);
 
 	cout
-		<< left << setw(20) << "Recipient Name"
-		<< setw(20) << "Recipient Address"
-		<< setw(20) << "Recipient City"
-		<< setw(20) << "Recipient State"
-		<< setw(20) << "Recipient ZIP"
+		<< left << setw(colWidth.at("name")) << "Name"
+		<< setw(colWidth.at("address")) << "Address"
+		<< setw(colWidth.at("city")) << "City"
+		<< setw(colWidth.at("state")) << "State"
+		<< setw(colWidth.at("zip")) << "ZIP"
 
-		<< setw(20) << "Sender Name"
-		<< setw(20) << "Sender Address"
-		<< setw(20) << "Sender City"
-		<< setw(15) << "Sender State"
-		<< setw(10) << "Sender ZIP"
+		<< setw(colWidth.at("name")) << "Name"
+		<< setw(colWidth.at("address")) << "Address"
+		<< setw(colWidth.at("city")) << "City"
+		<< setw(colWidth.at("state")) << "State"
+		<< setw(colWidth.at("zip")) << "ZIP"
 
-		<< setw(20) << "Weight"
-		<< setw(15) << "Cost" << endl;
+		<< right << setw(colWidth.at("weight")) << "Weight"
+		<< right << setw(colWidth.at("cost")) << "Cost" << endl;
 		
 	printLine(lineWidth);
 
@@ -69,20 +94,20 @@ void printTestTable(vector<Package*> packages) {
 		double currentCost = packages[i]->calculateCost();
 
 		cout
-			<< left << setw(20) << packages[i]->getRecipName()
-			<< setw(20) << packages[i]->getRecipAddress()
-			<< setw(20) << packages[i]->getRecipCity()
-			<< setw(20) << packages[i]->getRecipState()
-			<< setw(20) << packages[i]->getRecipZip()
+			<< left << setw(colWidth.at("name")) << packages[i]->getRecipName()
+			<< setw(colWidth.at("address")) << packages[i]->getRecipAddress()
+			<< setw(colWidth.at("city")) << packages[i]->getRecipCity()
+			<< setw(colWidth.at("state")) << packages[i]->getRecipState()
+			<< setw(colWidth.at("zip")) << packages[i]->getRecipZip()
 
-			<< setw(20) << packages[i]->getSendName()
-			<< setw(20) << packages[i]->getSendAddress()
-			<< setw(20) << packages[i]->getSendCity()
-			<< setw(15) << packages[i]->getSendState()
-			<< setw(10) << packages[i]->getSendZip()
+			<< setw(colWidth.at("name")) << packages[i]->getSendName()
+			<< setw(colWidth.at("address")) << packages[i]->getSendAddress()
+			<< setw(colWidth.at("city")) << packages[i]->getSendCity()
+			<< setw(colWidth.at("state")) << packages[i]->getSendState()
+			<< setw(colWidth.at("zip")) << packages[i]->getSendZip()
 
-			<< setw(20) << packages[i]->getWeight()
-			<< setw(15) << packages[i]->getCost() << endl;
+			<< right << setw(colWidth.at("weight")) << packages[i]->getWeight()
+			<< right << setw(colWidth.at("cost")) << packages[i]->getCost() << endl;
 
 		totalCosts += currentCost;
 	}
