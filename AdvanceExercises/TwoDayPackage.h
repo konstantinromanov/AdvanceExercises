@@ -34,6 +34,10 @@ public:
 		m_flatFee = flatFee;
 	}
 
+	double getFlatFee() {
+		return m_flatFee;
+	}
+
 	double calculateCost() override {
 		return Package::calculateCost() + m_flatFee;
 	}

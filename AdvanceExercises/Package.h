@@ -21,7 +21,7 @@ private:
 	double m_cost;
 
 public:
-	
+
 	Package(string recip_name,
 		string recip_address,
 		string recip_city,
@@ -51,12 +51,44 @@ public:
 		m_cost = cost;
 	}
 
+	string getRecipName() {
+		return m_recip_name;
+	}
+
 	string getRecipAddress() {
 		return m_recip_address;
 	}
 
+	string getRecipCity() {
+		return m_recip_city;
+	}
+
+	string getRecipState() {
+		return m_recip_state;
+	}
+
+	string getRecipZip() {
+		return m_recip_zip;
+	}
+
+	string getSendName() {
+		return m_send_name;
+	}
+
 	string getSendAddress() {
 		return m_send_address;
+	}
+
+	string getSendCity() {
+		return m_send_city;
+	}
+
+	string getSendState() {
+		return m_send_state;
+	}
+
+	string getSendZip() {
+		return m_send_zip;
 	}
 
 	double getWeight() {

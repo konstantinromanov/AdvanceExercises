@@ -34,6 +34,10 @@ public:
 		m_addFee = addFee;
 	}
 
+	double getAddFee() {
+		return m_addFee;
+	}
+		
 	double calculateCost() override {
 		return Package::getWeight() * (Package::getCost() + m_addFee);
 	}
