@@ -22,26 +22,10 @@ public:
 		double weight,
 		double cost,
 
-		double addFee) : Package(recip_name, recip_address, recip_city, recip_state, recip_zip,
-			send_name,
-			send_address,
-			send_city,
-			send_state,
-			send_zip,
-			weight,
-			cost)
-	{
-		m_addFee = addFee;
-	}
+		double addFee);
 
-	double getAddFee() {
-		return m_addFee;
-	}
-		
-	double calculateCost() override {
-		return Package::getWeight() * (Package::getCost() + m_addFee);
-	}
-
+	double getAddFee();
+	double calculateCost() override;
 };
 
 
