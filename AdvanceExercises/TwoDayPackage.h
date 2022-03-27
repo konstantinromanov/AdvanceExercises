@@ -9,20 +9,20 @@ private:
 
 public:
 
-	TwoDayPackage(string recip_name,
-		string recip_address,
-		string recip_city,
-		string recip_state,
-		string recip_zip,
-		string send_name,
-		string send_address,
-		string send_city,
-		string send_state,
-		string send_zip,
-		double weight,
-		double cost,
+	TwoDayPackage(string,
+		string,
+		string,
+		string,
+		string,
+		string,
+		string,
+		string,
+		string,
+		string,
+		double,
+		double,
 
-		double flatFee);
+		double);
 
 	double getFlatFee();
 
